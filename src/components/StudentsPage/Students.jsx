@@ -26,11 +26,23 @@ import {  useDeleteHook } from "../../../CustomHooks/deleteComponent/deleteHooks
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {GetQuery,PostQuery,UpdateQuery,DeleteQuery} from '../../../Shared/ReactQuery'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 export const Student = ()=>{
     const YupValidate = yup.object({
-        Studentname: yup.string().required('Enter The Student Name'),
-        Creationdate: yup.string().required("Enter The Client Creation date"),
+        Stdname: yup.string().required('Enter The Student Name'),
+        phone: yup.string().required("Enter Phone Number"),
+        Address: yup.string().required('Enter The Address'),
+        Gender: yup.string().required("Enter The Gender"),
+        Email: yup.string().required('Enter The Email'),
+        STD_Pass: yup.string().required("Enter The Std Pass"),
+        department_id: yup.string().required('Enter The Department ID'),
+        Class_id: yup.string().required("Enter The Client Class ID"),
+        
       });
     
       const {
@@ -47,6 +59,10 @@ export const Student = ()=>{
     // const queryclient = useQueryClient();
     const [Studentdeleteid,setStudentdeleteid]=useState('')
     const [StudentId,setStudentId]=useState('')
+    const[subcatClass,setsubcatClass]= useState([])
+    const[subcatDep,setsubcatDep]= useState([])
+    const [Depval,setDepval]=useState('')
+    const [Classval,setClassval]=useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [apiData, setapiData] = useState("")      
     const ToggleDailog = ()=>{
@@ -56,19 +72,27 @@ export const Student = ()=>{
 // const {register,handleSubmit,reset,setValue,formState:{errors}} = useForm()
 
    
-// useEffect(()=>{
-//     const subget= async()=>{
-//         const sublist=await getAllClient()
-//         const subdata=await sublist.data.AllOutClient
-//         setStudent(subdata)
-//      console.log("subdata",subdata)
 
-   
-//     }
-//     subget()
+useEffect(() =>{
+    const subget= async()=>{
+        const deplist=await axios.get('http://localhost:5000/department')
+        
+        const Depval=await deplist.data.Alldepartment
+        
+        setsubcatDep(Depval)
+console.log(Depval)
 
 
-// },[])
+const Classlist=await axios.get('http://localhost:5000/Class')
+            const Classval=await Classlist.data.AllClass
+            setsubcatClass(Classval)
+             console.log("Classval",Classval)
+
+
+    }
+    subget()
+
+}, [])
 
 const {data:Student,isLoading,isError}= GetQuery('/Student','Student')
 
@@ -185,17 +209,56 @@ const deleteStudentInfo = async (data)=>{
 <TextField label="phone" variant="outlined" {...register("phone")} size="small" fullWidth/>
 
 <TextField label="Address" {...register("Address")} variant="outlined" size="small" fullWidth/>
+{/* 
+<TextField label="Gender" variant="outlined" {...register("Gender")} size="small" fullWidth/> */}
 
-<TextField label="Gender" variant="outlined" {...register("Gender")} size="small" fullWidth/>
+
+<FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-controlled-open-select-label">Gender</InputLabel>
+        <Select label="Department id" variant="outlined" {...register("Gender")} size="small" fullWidth
+        >
+          <MenuItem value="">
+            <em>Gender</em>
+          </MenuItem>
+          <MenuItem value={"Male"}>Male</MenuItem>
+          <MenuItem value={"Female"}>Female</MenuItem>
+          
+        </Select>
+      </FormControl>
 
 <TextField label="Email" {...register("Email")} variant="outlined" size="small" fullWidth/>
 
 <TextField label="STD_Pass" variant="outlined" {...register("STD_Pass")} size="small" fullWidth/>
+{/* 
+<TextField label="department_id" {...register("department_id")} variant="outlined" size="small" fullWidth/> */}
 
-<TextField label="department_id" {...register("department_id")} variant="outlined" size="small" fullWidth/>
-
-<TextField label="Class_id" variant="outlined" {...register("Class_id")} size="small" fullWidth/>
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Department Name</InputLabel>
+  <Select label="Department id" variant="outlined" {...register("department_id")} size="small" fullWidth>
     
+  {subcatDep.map((Depval) => (
+    <MenuItem key={Depval._id} value={Depval._id}>
+      {Depval.departmentname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Class Name</InputLabel>
+  <Select label="Class id" variant="outlined" {...register("Class_id")} size="small" fullWidth>
+    
+  {subcatClass.map((Classval) => (
+    <MenuItem key={Classval._id} value={Classval._id}>
+      {Classval.Classname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+
+{/* 
+<TextField label="Class_id" variant="outlined" {...register("Class_id")} size="small" fullWidth/>
+     */}
     
     </Stack>
 

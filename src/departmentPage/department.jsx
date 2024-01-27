@@ -35,6 +35,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+
 export const Department = ()=>{
     const YupValidate = yup.object({
         departmentname: yup.string().required('Enter The Department Name'),
@@ -55,11 +56,28 @@ export const Department = ()=>{
     // const queryclient = useQueryClient();
     const [Departmentdeleteid,setDepartmentdeleteid]=useState('')
     const [DepartmentId,setDepartmentId]=useState('')
+    const[subcat,setsubcat]= useState([])
+    const [facultyval,setfacultyval]=useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [apiData, setapiData] = useState("")      
     const ToggleDailog = ()=>{
         setDailog(!dailogOpen)
     }
+
+
+
+    useEffect(() =>{
+        const subget= async()=>{
+            const facultylist=await axios.get('http://localhost:5000/Faculty')
+            
+            const facultyval=await facultylist.data.AllFaculty
+            
+            setsubcat(facultyval)
+console.log(facultyval)
+        }
+        subget()
+
+    }, [])
 
 // const {register,handleSubmit,reset,setValue,formState:{errors}} = useForm()
 
@@ -86,6 +104,7 @@ const {mutate:updateMutate,isLoading:updateLoading} = UpdateQuery(`/department/$
  
 const {mutate:deleteMutate} = DeleteQuery(`/department/${Departmentdeleteid}`,'Department')
 
+//  console.log("data",Department.data.Alldepartment,Faculty_id.facultyname)
 
 const AddNewDepartment = async (data)=>{
 
@@ -179,13 +198,29 @@ const deleteDepartmentInfo = async (data)=>{
 
 
 
-<Stack  spacing={2} direction={'column'}>
+<Stack  spacing={3} direction={'column'}>
 
 
 
 <TextField label="Department name" {...register("departmentname")} variant="outlined" size="small" fullWidth/>
 
-<TextField label="Faculty id" variant="outlined" {...register("Faculty_id")} size="small" fullWidth/>
+{/* <TextField label="Faculty id" variant="outlined" {...register("Faculty_id")} size="small" fullWidth/> */}
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Faculty name</InputLabel>
+  <Select label="Faculty id" variant="outlined" {...register("Faculty_id")} size="small" fullWidth>
+    
+  {subcat.map((facultyval) => (
+    <MenuItem key={facultyval._id} value={facultyval._id}>
+      {facultyval.Facultyname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+
+
+
+
+{errors.facultyname && <Alert severity="error">{errors.facultyname.message}</Alert> }
 
     
     

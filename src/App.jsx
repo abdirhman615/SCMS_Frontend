@@ -8,6 +8,7 @@ import {Faculty} from "./components/FacultyPage/Faculty";
 import {Department} from "./departmentPage/department";
 import {Class} from "./components/ClassPage/Class";
 import {Student} from "./components/StudentsPage/Students";
+import Complain from "./components/ComplainPage/Complain";
 
 
 
@@ -44,6 +45,7 @@ function app() {
           <Route path='Department' element={<Department />} />
           <Route path='Class' element={<Class />} />
           <Route path='Student' element={<Student />} />
+          <Route path='Complain' element={<Complain />} />
           {/* <Route path='client' element={<Clients />} />
           <Route path='houses' element={<Houses />} />
           <Route path='images/:id/:Type' element={<ImagesFolder />} />

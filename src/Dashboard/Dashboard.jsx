@@ -1,4 +1,4 @@
-import { Box,Stack,IconButton,Typography,Button  } from "@mui/material"
+import { Box,Stack,IconButton,Typography,Button ,Avatar } from "@mui/material"
 import {Sidebar} from "./SideBar";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -308,13 +308,15 @@ function Body(props) {
               px: [1],
             }}
           >
-            <Stack direction={'row'} spacing={1}>
- <Box>
- <AddHomeWorkIcon sx={{color:"primary.main",height:30, fontSize:30 }} />
+            <Stack direction={'row'} spacing={5}>
+ <Box >
+ <Avatar alt="Remy Sharp"  sx={{  width: 70, height:70 }} src="../../logo/logo.png" />
  
  </Box>
  
- <Box><Typography variant="h6" > BetaHouse</Typography></Box>
+ <Box>
+    {/* <Typography variant="h6" >SIU</Typography> */}
+ </Box>
  </Stack>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
