@@ -176,7 +176,7 @@ const deleteFacultyInfo = async (data)=>{
 
 <TextField label="Faculty name" {...register("Facultyname")} variant="outlined" size="small" fullWidth/>
 
-<TextField label="Creation date" variant="outlined" {...register("Creationdate")} size="small" fullWidth/>
+<TextField type="date" variant="outlined" {...register("Creationdate")} size="small" fullWidth/>
     
     
     </Stack>

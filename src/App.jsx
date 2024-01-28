@@ -8,7 +8,7 @@ import {Faculty} from "./components/FacultyPage/Faculty";
 import {Department} from "./departmentPage/department";
 import {Class} from "./components/ClassPage/Class";
 import {Student} from "./components/StudentsPage/Students";
-import Complain from "./components/ComplainPage/Complain";
+import {Complain} from "./components/ComplainPage/Complain";
 
 
 
