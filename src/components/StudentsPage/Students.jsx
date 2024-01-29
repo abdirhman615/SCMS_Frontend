@@ -30,8 +30,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 export const Student = ()=>{
     const YupValidate = yup.object({
         Stdname: yup.string().required('Enter The Student Name'),
@@ -212,7 +214,18 @@ const deleteStudentInfo = async (data)=>{
 {/* 
 <TextField label="Gender" variant="outlined" {...register("Gender")} size="small" fullWidth/> */}
 
-
+<FormControl>
+  <FormLabel size="small" fullWidth id="demo-controlled-radio-buttons-group">Gender</FormLabel>
+  <RadioGroup
+    row
+    aria-labelledby="demo-row-radio-buttons-group-label"
+    name="row-radio-buttons-group"
+  >
+    <FormControlLabel  variant="outlined" {...register("Gender")} size="small" fullWidth value="Female" control={<Radio />} label="Female" />
+    <FormControlLabel  variant="outlined" {...register("Gender")} size="small" fullWidth value="Male" control={<Radio />} label="Male" />
+  </RadioGroup>
+</FormControl>
+{/* 
 <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-controlled-open-select-label">Gender</InputLabel>
         <Select label="Department id" variant="outlined" {...register("Gender")} size="small" fullWidth
@@ -224,7 +237,7 @@ const deleteStudentInfo = async (data)=>{
           <MenuItem value={"Female"}>Female</MenuItem>
           
         </Select>
-      </FormControl>
+      </FormControl> */}
 
 <TextField label="Email" {...register("Email")} variant="outlined" size="small" fullWidth/>
 

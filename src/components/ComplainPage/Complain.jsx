@@ -28,6 +28,10 @@ import * as yup from 'yup';
 import {GetQuery,PostQuery,UpdateQuery,DeleteQuery} from '../../../Shared/ReactQuery'
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip'
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 export const Complain = ()=>{
     const YupValidate = yup.object({
         Student_id: yup.string().required('Enter The Student Id'),
@@ -35,7 +39,7 @@ export const Complain = ()=>{
         Class_id: yup.string().required('Enter The Class'),
         Description: yup.string().required("Enter The Description"),
         Complain_date: yup.string().required('Enter The Complain Data'),
-        Status: yup.string().required("Enter The Status"),
+        // Status: yup.string().required("Enter The Status"),
       });
     
       const {
@@ -53,10 +57,43 @@ export const Complain = ()=>{
     const [Complaindeleteid,setComplaindeleteid]=useState('')
     const [ComplainId,setComplainId]=useState('')
     const [showAlert, setshowAlert] = useState(false)
-    const [apiData, setapiData] = useState("")      
+    const [apiData, setapiData] = useState("")  
+    const[subcatClass,setsubcatClass]= useState([])
+    const[subcatDep,setsubcatDep]= useState([])
+    const[subcatSTD,setsubcatSTD]= useState([])
+    const [Depval,setDepval]=useState('')
+    const [Classval,setClassval]=useState('')
+    const [STDval,setSTDval]=useState('')
     const ToggleDailog = ()=>{
         setDailog(!dailogOpen)
     }
+
+
+    useEffect(() =>{
+        const subget= async()=>{
+            const deplist=await axios.get('http://localhost:5000/department')
+            
+            const Depval=await deplist.data.Alldepartment
+            
+            setsubcatDep(Depval)
+    console.log(Depval)
+    
+    
+    const Classlist=await axios.get('http://localhost:5000/Class')
+                const Classval=await Classlist.data.AllClass
+                setsubcatClass(Classval)
+                 console.log("Classval",Classval)
+                 
+    const STDlist=await axios.get('http://localhost:5000/Student/')
+                const STDval=await STDlist.data.AllStudent
+                setsubcatSTD(STDval)
+                 console.log("STDval",STDval)
+    
+    
+        }
+        subget()
+    
+    }, [])
 
 const {data:Complain,isLoading,isError}= GetQuery('/Complain','Complain')
 
@@ -132,19 +169,20 @@ const deleteComplainInfo = async (data)=>{
 
    <ConfirmDelete open={deletehook.open} toggle={deletehook.Toggle} message={deletehook.message} confirm={deleteCheck} />
  <Breadcrumbs aria-label="breadcrumb">
-  <Link underline="hover" color="inherit" href="#">
+  <Link underline="hover" color="inherit" to={'Dashboard'}>
     Dashboard
   </Link>
   <Typography color="text.primary">Complain</Typography>
 </Breadcrumbs>
+
  <Divider sx={{height:10}}/>
     <Alert severity="info">Our Complain</Alert>
-    <Box sx={{display:"flex",justifyContent:"space-between"}} my={2}>
+    {/* <Box sx={{display:"flex",justifyContent:"space-between"}} my={2}>
         <Typography variant="h6">List Complain</Typography>
         <IconButton   onClick={ToggleDailog}>
 <AddCircleOutlineSharp />
         </IconButton>
-    </Box>
+    </Box> */}
     <Dialog open={dailogOpen} onClose={ToggleDailog}>
         <DialogTitle>New Complain</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewComplain)}>
@@ -155,13 +193,57 @@ const deleteComplainInfo = async (data)=>{
 
 <Stack  spacing={2} direction={'column'}>
 
-
-
-<TextField label="Complain name" {...register("Complainname")} variant="outlined" size="small" fullWidth/>
-
-<TextField type="date" variant="outlined" {...register("Creationdate")} size="small" fullWidth/>
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Student Name</InputLabel>
+  <Select label="Student id" variant="outlined" {...register("Student_id")} size="small" fullWidth>
     
+  {subcatSTD.map((STDval) => (
+    <MenuItem key={STDval._id} value={STDval._id}>
+      {STDval.Stdname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Departments</InputLabel>
+  <Select label="Department id" variant="outlined" {...register("department_id")} size="small" fullWidth>
     
+  {subcatDep.map((Depval) => (
+    <MenuItem key={Depval._id} value={Depval._id}>
+      {Depval.departmentname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Class Name</InputLabel>
+  <Select label="Class id" variant="outlined" {...register("Class_id")} size="small" fullWidth>
+    
+  {subcatClass.map((Classval) => (
+    <MenuItem key={Classval._id} value={Classval._id}>
+      {Classval.Classname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
+
+
+<TextField label="Description" {...register("Description")} variant="outlined" size="small" fullWidth/>
+
+<TextField type="date" variant="outlined" {...register("Complain_date")} size="small" fullWidth/>
+{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-controlled-open-select-label">Status</InputLabel>
+        <Select label="Department id" variant="outlined" {...register("Status")} size="small" fullWidth
+        >
+          <MenuItem value="">
+            <em>Status</em>
+          </MenuItem>
+          <MenuItem value={"New"}>New</MenuItem>
+          <MenuItem value={"Open"}>Open</MenuItem>
+          
+        </Select>
+      </FormControl> */}
     </Stack>
 
     </Box>
@@ -185,7 +267,7 @@ const deleteComplainInfo = async (data)=>{
      */}
 
  
-
+{/* 
  {isError ? (<Box sx={{ display:'flex',justifyContent:'center',textAlign:'center',alignItems:"center",p:10}}>
 
  <Box>
@@ -203,12 +285,12 @@ const deleteComplainInfo = async (data)=>{
      </Box>
 
  </Box>) :  <ComplainList DeleteComplain={deleteComplainInfo} ComplainData={Complain?.data.AllComplain} update={UpdateComplainInfo} />  }
- 
+  */}
 
-   </Box>
    
-   <Card variant="outlined" sx={{ maxWidth: 300 }}>
-      <Box sx={{ p: 2 }}>
+   <Box sx={{ display:'flex',justifyContent:'space-around'}}   my={3}>
+   <Card  variant="outlined" sx={{ maxWidth: 300 }}>
+      <Box sx={{ p: 3 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography gutterBottom variant="h5" component="div">
           Submit Complaint
@@ -230,46 +312,30 @@ const deleteComplainInfo = async (data)=>{
         </Stack>
       </Box>
     </Card>
-                   
+   <Card variant="outlined" sx={{ maxWidth: 300 }}>
+      <Box sx={{ p: 2 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography gutterBottom variant="h5" component="div">
+          View Complaint
+          </Typography>
+          
+        </Stack>
+        
+      </Box>
+      <Divider light />
+      <Box sx={{display:"flex",justifyContent:"space-between",p: 1}} my={2} >
+      
+        <Typography gutterBottom variant="body2">
+          Add Complain
+        </Typography>
+        <Stack direction="row" spacing={2}>
+          <IconButton   onClick={ToggleDailog}>
+<AddCircleOutlineSharp />
+        </IconButton>
+        </Stack>
+      </Box>
+    </Card>
+     </Box> 
+     </Box>       
     </>
 }
-
-// import * as React from 'react';
-// import Card from '@mui/material/Card';
-// import Box from '@mui/material/Box';
-// import Chip from '@mui/material/Chip';
-// import Stack from '@mui/material/Stack';
-// import Divider from '@mui/material/Divider';
-// import Typography from '@mui/material/Typography';
-
-// export default function Complain() {
-//   return (
-//     <Card variant="outlined" sx={{ maxWidth: 360 }}>
-//       <Box sx={{ p: 2 }}>
-//         <Stack direction="row" justifyContent="space-between" alignItems="center">
-//           <Typography gutterBottom variant="h5" component="div">
-//             Toothbrush
-//           </Typography>
-//           <Typography gutterBottom variant="h6" component="div">
-//             $4.50
-//           </Typography>
-//         </Stack>
-//         <Typography color="text.secondary" variant="body2">
-//           Pinstriped cornflower blue cotton blouse takes you on a walk to the park or
-//           just down the hall.
-//         </Typography>
-//       </Box>
-//       <Divider light />
-//       <Box sx={{ p: 2 }}>
-//         <Typography gutterBottom variant="body2">
-//           Select type
-//         </Typography>
-//         <Stack direction="row" spacing={1}>
-//           <Chip color="primary" label="Soft" size="small" />
-//           <Chip label="Medium" size="small" />
-//           <Chip label="Hard" size="small" />
-//         </Stack>
-//       </Box>
-//     </Card>
-//   );
-// }
