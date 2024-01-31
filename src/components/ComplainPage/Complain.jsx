@@ -35,8 +35,8 @@ import MenuItem from '@mui/material/MenuItem';
 export const Complain = ()=>{
     const YupValidate = yup.object({
         Student_id: yup.string().required('Enter The Student Id'),
-        department_id: yup.string().required("Enter The department"),
-        Class_id: yup.string().required('Enter The Class'),
+        department_id: yup.string().required("Enter The department Name"),
+        Class_id: yup.string().required('Enter The Class Name'),
         Description: yup.string().required("Enter The Description"),
         Complain_date: yup.string().required('Enter The Complain Data'),
         // Status: yup.string().required("Enter The Status"),
@@ -183,8 +183,10 @@ const deleteComplainInfo = async (data)=>{
 <AddCircleOutlineSharp />
         </IconButton>
     </Box> */}
-    <Dialog open={dailogOpen} onClose={ToggleDailog}>
-        <DialogTitle>New Complain</DialogTitle>
+    <Dialog sx={{
+        backdropFilter: "blur(5px) sepia(5%)",
+      }} PaperProps={{ sx: { borderRadius: "20px" } }} open={dailogOpen} onClose={ToggleDailog}>
+        <DialogTitle sx={{ bgcolor: "primary.dark", color: "white" }}>New Complain</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewComplain)}>
         <DialogContent>
         <Box sx={{width:"400px"}} mt={2}>
@@ -203,7 +205,13 @@ const deleteComplainInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.Student_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Student_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
+
 <FormControl >
 <InputLabel id="demo-multiple-name-label">Departments</InputLabel>
   <Select label="Department id" variant="outlined" {...register("department_id")} size="small" fullWidth>
@@ -214,6 +222,11 @@ const deleteComplainInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.department_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.department_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 
 <FormControl >
@@ -226,12 +239,28 @@ const deleteComplainInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.Class_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Class_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 
 
-<TextField label="Description" {...register("Description")} variant="outlined" size="small" fullWidth/>
+{/* <TextField label="Description" {...register("Description")} variant="outlined" size="small" fullWidth/> */}
 
+<TextField label="Description" multiline maxRows={4} variant="outlined" {...register("Description")}  size="small" fullWidth/>
+{errors.Description ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Description.message}
+                  </Typography>
+                ) : null}
 <TextField type="date" variant="outlined" {...register("Complain_date")} size="small" fullWidth/>
+{errors.Complain_date ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Complain_date.message}
+                  </Typography>
+                ) : null}
 {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-controlled-open-select-label">Status</InputLabel>
         <Select label="Department id" variant="outlined" {...register("Status")} size="small" fullWidth

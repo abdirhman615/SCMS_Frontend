@@ -41,9 +41,9 @@ export const Student = ()=>{
         Address: yup.string().required('Enter The Address'),
         Gender: yup.string().required("Enter The Gender"),
         Email: yup.string().required('Enter The Email'),
-        STD_Pass: yup.string().required("Enter The Std Pass"),
-        department_id: yup.string().required('Enter The Department ID'),
-        Class_id: yup.string().required("Enter The Client Class ID"),
+        STD_Pass: yup.string().required("Enter The Studen Password"),
+        department_id: yup.string().required('Enter The Department Name'),
+        Class_id: yup.string().required("Enter The Class Name"),
         
       });
     
@@ -170,7 +170,7 @@ const deleteCheck = ()=>{
 }
 
 const deleteStudentInfo = async (data)=>{
-   deletehook.setMessage(data.Studentname)
+   deletehook.setMessage(data.Stdname)
     deletehook.Toggle()
     setStudentdeleteid(data._id)
 }
@@ -194,8 +194,10 @@ const deleteStudentInfo = async (data)=>{
 <AddCircleOutlineSharp />
         </IconButton>
     </Box>
-    <Dialog open={dailogOpen} onClose={ToggleDailog}>
-        <DialogTitle>New Student</DialogTitle>
+    <Dialog sx={{
+        backdropFilter: "blur(5px) sepia(5%)",
+      }} PaperProps={{ sx: { borderRadius: "20px" } }} open={dailogOpen} onClose={ToggleDailog}>
+        <DialogTitle sx={{ bgcolor: "primary.dark", color: "white" }}>New Student</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewStudent)}>
         <DialogContent>
         <Box sx={{width:"400px"}} mt={2}>
@@ -207,14 +209,28 @@ const deleteStudentInfo = async (data)=>{
 
 
 <TextField label="Student name" {...register("Stdname")} variant="outlined" size="small" fullWidth/>
+{errors.Stdname ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Stdname.message}
+                  </Typography>
+                ) : null}
 
 <TextField label="phone" variant="outlined" {...register("phone")} size="small" fullWidth/>
-
+{errors.phone ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.phone.message}
+                  </Typography>
+                ) : null}
 <TextField label="Address" {...register("Address")} variant="outlined" size="small" fullWidth/>
+{errors.Address ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Address.message}
+                  </Typography>
+                ) : null}
 {/* 
 <TextField label="Gender" variant="outlined" {...register("Gender")} size="small" fullWidth/> */}
 
-<FormControl>
+<FormControl sx={{px: 1}}>
   <FormLabel size="small" fullWidth id="demo-controlled-radio-buttons-group">Gender</FormLabel>
   <RadioGroup
     row
@@ -224,20 +240,14 @@ const deleteStudentInfo = async (data)=>{
     <FormControlLabel  variant="outlined" {...register("Gender")} size="small" fullWidth value="Female" control={<Radio />} label="Female" />
     <FormControlLabel  variant="outlined" {...register("Gender")} size="small" fullWidth value="Male" control={<Radio />} label="Male" />
   </RadioGroup>
+  {errors.Gender ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Gender.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 {/* 
-<FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-controlled-open-select-label">Gender</InputLabel>
-        <Select label="Department id" variant="outlined" {...register("Gender")} size="small" fullWidth
-        >
-          <MenuItem value="">
-            <em>Gender</em>
-          </MenuItem>
-          <MenuItem value={"Male"}>Male</MenuItem>
-          <MenuItem value={"Female"}>Female</MenuItem>
-          
-        </Select>
-      </FormControl> */}
+
 
 <TextField label="Email" {...register("Email")} variant="outlined" size="small" fullWidth/>
 
@@ -255,6 +265,11 @@ const deleteStudentInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.department_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.department_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 
 <FormControl >
@@ -267,6 +282,11 @@ const deleteStudentInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.Class_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Class_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 
 {/* 

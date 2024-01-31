@@ -18,17 +18,26 @@ import { GetQuery, PostQuery, UpdateQuery, DeleteQuery } from '../../../Shared/R
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useEffect } from "react";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Select from '@mui/material/Select';
+import axios from "axios"
 
-
-
-export default function Users() {
+export const Users = ()=>{
 
   const YupValidate = yup.object({
     username: yup.string().required('Enter The username'),
-    email: yup.string().required("Enter The email"),
-    password: yup.string().required("Enter The password"),
-    status: yup.string().required("Enter The status"),
-    role: yup.string().required("Enter The user Role"),
+    Password: yup.string().required("Enter The Password"),
+    usertype: yup.string().required("Enter The usertype"),
+    userStatus: yup.string().required("Enter The userStatus"),
+    dar: yup.string().required("Enter The user dar"),
+    Faculty_id: yup.string().required("Enter The user Faculty_id"),
 
   });
 
@@ -42,7 +51,8 @@ export default function Users() {
   const [EditId, setEditId] = useState('')
   const queryclient = useQueryClient();
   const [UserDelId, setUserDelId] = useState("")
-
+  const[subcat,setsubcat]= useState([])
+  const [facultyval,setfacultyval]=useState('')
   const [dailogOpen, setDailog] = useState(false)
   const ToggleDailog = () => {
     setDailog(!dailogOpen)
@@ -51,13 +61,27 @@ export default function Users() {
     setEditId('')
   }
 
-  const { data: user, isLoading, isError } = GetQuery('/users', 'users')
+  
+  useEffect(() =>{
+    const subget= async()=>{
+        const facultylist=await axios.get('http://localhost:5000/Faculty')
+        
+        const facultyval=await facultylist.data.AllFaculty
+        
+        setsubcat(facultyval)
+console.log(facultyval)
+    }
+    subget()
+
+}, [])
+
+  const { data: User, isLoading, isError } = GetQuery('/User', 'User')
   // console.log(service?.data)
 
 
-  const { mutateAsync, isloading: mutateLoading } = PostQuery("/users", "users")
+  const { mutateAsync, isloading: mutateLoading } = PostQuery("/User", "User")
 
-  const { mutateAsync: updateMutate } = UpdateQuery(`/users/${EditId}`, "users")
+  const { mutateAsync: updateMutate } = UpdateQuery(`/User/${EditId}`, "User")
 
   const AddNewUser = async (data) => {
 
@@ -103,17 +127,18 @@ export default function Users() {
   const UpdateUserInfo = async (data) => {
     // console.log("xogta la rabbo in la update gareeyo",data)
     setValue("username", data.username)
-    setValue("email", data.email)
-    setValue("password", data.password)
-    setValue("status", data.status)
-    setValue("role", data.role)
+    setValue("Password", data.Password)
+    setValue("usertype", data.usertype)
+    setValue("userStatus", data.userStatus)
+    setValue("dar", data.dar)
+    setValue("Faculty_id", data.Faculty_id)
     setEditId(data._id)
     ToggleDailog()
 
   }
 
 
-  const { mutate: delateMutate } = DeleteQuery(`/users/${UserDelId}`, "users")
+  const { mutate: delateMutate } = DeleteQuery(`/User/${UserDelId}`, "User")
 
   const DeleteHook = useDeleteHook()
 
@@ -152,7 +177,7 @@ export default function Users() {
         <Typography variant="h6">Users List</Typography>
 
         <IconButton onClick={ToggleDailog}>
-          <ControlPointIcon sx={{ color: "#F5671F" }} />
+          <ControlPointIcon  />
         </IconButton>
       </Box>
 
@@ -177,33 +202,75 @@ export default function Users() {
                   </Typography>
                 ) : null}
 
-                <TextField label="email" variant="outlined" {...register("email")} size="small" fullWidth />
-                {errors.email ? (
+                <TextField label="Password" variant="outlined" {...register("Password")} size="small" fullWidth />
+                {errors.Password ? (
                   <Typography sx={{ color: "error.main" }}>
-                    {errors.email.message}
+                    {errors.Password.message}
                   </Typography>
                 ) : null}
 
-                <TextField label="password" variant="outlined" {...register("password")} size="small" fullWidth />
-                {errors.password ? (
+{/* 
+<TextField label="usertype" variant="outlined" {...register("usertype")} size="small" fullWidth /> */}
+
+<FormControl sx={{px: 1}}>
+  <FormLabel size="small" fullWidth id="demo-controlled-radio-buttons-group">User Type</FormLabel>
+  <RadioGroup
+    row
+    aria-labelledby="demo-row-radio-buttons-group-label"
+    name="row-radio-buttons-group"
+  >
+    <FormControlLabel  variant="outlined" {...register("usertype")} size="small" fullWidth value="admin" control={<Radio />} label="Admin" />
+    <FormControlLabel  variant="outlined" {...register("usertype")} size="small" fullWidth value="faculty" control={<Radio />} label="Faculty" />
+  </RadioGroup>
+  {errors.usertype ? (
                   <Typography sx={{ color: "error.main" }}>
-                    {errors.password.message}
+                    {errors.usertype.message}
+                  </Typography>
+                ) : null}
+</FormControl>
+
+              
+{/* 
+<TextField label="userStatus" variant="outlined" {...register("userStatus")} size="small" fullWidth /> */}
+
+<FormControl sx={{px:1}}>
+  <FormLabel  fullWidth id="demo-controlled-radio-buttons-group">User Status</FormLabel>
+  <RadioGroup
+    row
+    aria-labelledby="demo-row-radio-buttons-group-label"
+    name="row-radio-buttons-group"
+  >
+    <FormControlLabel  variant="outlined" {...register("userStatus")} size="small" fullWidth value="active" control={<Radio />} label="Active" />
+    <FormControlLabel  variant="outlined" {...register("userStatus")} size="small" fullWidth value="pending" control={<Radio />} label="Pending" />
+    <FormControlLabel  variant="outlined" {...register("userStatus")} size="small" fullWidth value="blocked" control={<Radio />} label="Blocked" />
+  </RadioGroup>
+  {errors.userStatus ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.userStatus.message}
+                  </Typography>
+                ) : null}
+</FormControl>
+
+               
+<TextField type="date"  variant="outlined" {...register("dar")} size="small" fullWidth />
+                {errors.dar ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.dar.message}
                   </Typography>
                 ) : null}
 
-<TextField label="status" variant="outlined" {...register("status")} size="small" fullWidth />
-                {errors.status ? (
-                  <Typography sx={{ color: "error.main" }}>
-                    {errors.status.message}
-                  </Typography>
-                ) : null}
 
-<TextField label="role" variant="outlined" {...register("role")} size="small" fullWidth />
-                {errors.role ? (
-                  <Typography sx={{ color: "error.main" }}>
-                    {errors.role.message}
-                  </Typography>
-                ) : null}
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Faculty name</InputLabel>
+  <Select label="Faculty id" variant="outlined" {...register("Faculty_id")} size="small" fullWidth>
+    
+  {subcat.map((facultyval) => (
+    <MenuItem key={facultyval._id} value={facultyval._id}>
+      {facultyval.Facultyname}
+    </MenuItem>
+  ))}
+</Select>
+</FormControl>
 
 
               </Stack>
@@ -245,7 +312,7 @@ export default function Users() {
             <Typography >Loading...</Typography>
           </Box>
 
-        </Box>) : <UsersList deleteUser={DeleteUserInfo} UsersData={user?.data} updateUser={UpdateUserInfo} />}
+        </Box>) : <UsersList deleteUser={DeleteUserInfo} UsersData={User?.data.Alluser} updateUser={UpdateUserInfo} />}
 
     </Box>
   </>

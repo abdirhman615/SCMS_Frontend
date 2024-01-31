@@ -160,8 +160,10 @@ const deleteClassInfo = async (data)=>{
 <AddCircleOutlineSharp />
         </IconButton>
     </Box>
-    <Dialog open={dailogOpen} onClose={ToggleDailog}>
-        <DialogTitle>New Class</DialogTitle>
+    <Dialog sx={{
+        backdropFilter: "blur(5px) sepia(5%)",
+      }} PaperProps={{ sx: { borderRadius: "20px" } }} open={dailogOpen} onClose={ToggleDailog}>
+        <DialogTitle sx={{ bgcolor: "primary.dark", color: "white" }}>New Class</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewClass)}>
         <DialogContent>
         <Box sx={{width:"400px"}} mt={2}>
@@ -173,7 +175,11 @@ const deleteClassInfo = async (data)=>{
 
 
 <TextField label="Class name" {...register("Classname")} variant="outlined" size="small" fullWidth/>
-
+{errors.Classname ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Classname.message}
+                  </Typography>
+                ) : null}
     
     
     </Stack>

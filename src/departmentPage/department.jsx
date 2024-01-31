@@ -190,8 +190,10 @@ const deleteDepartmentInfo = async (data)=>{
 <AddCircleOutlineSharp />
         </IconButton>
     </Box>
-    <Dialog open={dailogOpen} onClose={ToggleDailog}>
-        <DialogTitle>New Department</DialogTitle>
+    <Dialog sx={{
+        backdropFilter: "blur(5px) sepia(5%)",
+      }} PaperProps={{ sx: { borderRadius: "20px" } }} open={dailogOpen} onClose={ToggleDailog}>
+        <DialogTitle sx={{ bgcolor: "primary.dark", color: "white" }}>New Department</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewDepartment)}>
         <DialogContent>
         <Box sx={{width:"400px"}} mt={2}>

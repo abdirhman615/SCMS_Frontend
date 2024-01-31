@@ -11,32 +11,51 @@ export default function UsersList({ UsersData, updateUser, deleteUser }) {
     { field: '_id', headerName: 'ID', width: 90 },
     {
       field: 'username',
-      headerName: 'username',
-      width: 150,
+      headerName: 'Username',
+      width: 180,
       editable: true,
     },
     {
-      field: 'email',
-      headerName: 'email',
-      width: 150,
+      field: 'Password',
+      headerName: 'Password',
+      width: 100,
       editable: true,
     },
     {
-      field: 'status',
-      headerName: 'status',
-      width: 150,
+      field: 'usertype',
+      headerName: 'User Type',
+      width: 100,
       editable: true,
     },
     {
-      field: 'role',
-      headerName: 'role',
-      width: 150,
+      field: 'userStatus',
+      headerName: 'UserStatus',
+      width: 100,
       editable: true,
+    },
+    {
+      field: 'dar',
+      headerName: 'Dete',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'Faculty_id',
+      headerName: 'Faculty Name',
+      width: 180,
+      editable: true,
+
+      renderCell: (params) => {
+        return <Box> {params.row.Faculty_id.Facultyname} {""}
+        {/* <Chip size='small' onClick={ () => seeMore(params.row)} label="See More" variant="outlined"/> */}
+
+        </Box>
+      }
     },
     {
       field: "Actions",
       headerName: "Actions",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
 
         return <Box>

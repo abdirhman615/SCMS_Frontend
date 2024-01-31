@@ -30,7 +30,7 @@ import {GetQuery,PostQuery,UpdateQuery,DeleteQuery} from '../../../Shared/ReactQ
 export const Faculty = ()=>{
     const YupValidate = yup.object({
         Facultyname: yup.string().required('Enter The Faculty Name'),
-        Creationdate: yup.string().required("Enter The Client Creation date"),
+        Creationdate: yup.string().required("Enter The Creation date"),
       });
     
       const {
@@ -162,8 +162,10 @@ const deleteFacultyInfo = async (data)=>{
 <AddCircleOutlineSharp />
         </IconButton>
     </Box>
-    <Dialog open={dailogOpen} onClose={ToggleDailog}>
-        <DialogTitle>New Faculty</DialogTitle>
+    <Dialog sx={{
+        backdropFilter: "blur(5px) sepia(5%)",
+      }} PaperProps={{ sx: { borderRadius: "20px" } }} open={dailogOpen} onClose={ToggleDailog}>
+        <DialogTitle sx={{ bgcolor: "primary.dark", color: "white" }}>New Faculty</DialogTitle>
         <Box component={"form"} onSubmit={handleSubmit(AddNewFaculty)}>
         <DialogContent>
         <Box sx={{width:"400px"}} mt={2}>
@@ -175,9 +177,18 @@ const deleteFacultyInfo = async (data)=>{
 
 
 <TextField label="Faculty name" {...register("Facultyname")} variant="outlined" size="small" fullWidth/>
+{errors.Facultyname ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Facultyname.message}
+                  </Typography>
+                ) : null}
 
 <TextField type="date" variant="outlined" {...register("Creationdate")} size="small" fullWidth/>
-    
+    {errors.Creationdate ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Creationdate.message}
+                  </Typography>
+                ) : null}
     
     </Stack>
 

@@ -9,7 +9,7 @@ import {Department} from "./departmentPage/department";
 import {Class} from "./components/ClassPage/Class";
 import {Student} from "./components/StudentsPage/Students";
 import {Complain} from "./components/ComplainPage/Complain";
-
+import {Users} from "./components/UsersPage/Users";
 
 
 
@@ -46,6 +46,7 @@ function app() {
           <Route path='Class' element={<Class />} />
           <Route path='Student' element={<Student />} />
           <Route path='Complain' element={<Complain />} />
+          <Route path='User' element={<Users />} />
           {/* <Route path='client' element={<Clients />} />
           <Route path='houses' element={<Houses />} />
           <Route path='images/:id/:Type' element={<ImagesFolder />} />
