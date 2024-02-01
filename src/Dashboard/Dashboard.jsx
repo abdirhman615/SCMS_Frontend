@@ -1,4 +1,6 @@
 import { Box,Stack,IconButton,Typography,Button ,Avatar } from "@mui/material"
+import { LoginOutlined } from "@mui/icons-material";
+
 import {Sidebar} from "./SideBar";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -39,7 +41,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import DialogTitle from '@mui/material/DialogTitle';
 // export default function Dashboard(){
 // const [draweOpen,setDrawer]=useState(false)
-// const {email,LogOut} = useUserContext()
+//  const {email,LogOut} = useUserContext()
 
 // const [DialOpen, setDial] = useState(false);
 // const Toggle = () => {
@@ -196,7 +198,7 @@ function Body(props) {
  
   const defaultTheme = createTheme();
   export default function Dashboard(){
-  // const {email,LogOut} = useUserContext()
+   const {email,LogOut} = useUserContext()
  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -254,7 +256,7 @@ function Body(props) {
     md:"start"
  }}} p={2}>
  
- {/* <Typography >  User : {email}</Typography> */}
+ <Typography >  User : {email}</Typography>
  <IconButton sx={{p:0,display:{
      xs:"block",
      md:"none"
@@ -287,9 +289,9 @@ function Body(props) {
                
               
  <Box sx={{marginLeft  :"800px"}}>
-            {/* <IconButton sx={{p:0}} onClick={()=>LogOut()}>
+            <IconButton sx={{p:0}} onClick={()=>LogOut()}>
               <LoginOutlined sx={{color:"white"}}/>
-            </IconButton> */}
+            </IconButton>
  </Box>
  
             </Typography>

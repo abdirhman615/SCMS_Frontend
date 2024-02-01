@@ -5,11 +5,15 @@ import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { QueryClient, QueryClientProvider, } from 'react-query'
+//  import { QueryClientProvider, } from '@tanstack/react-query'
+// import { QueryClient } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { UserContextProvide } from './ContextApi/UserContext.jsx'
-
+import { UserContextProvider } from './ContextApi/UserContext.jsx'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 const queryClient = new QueryClient()
 
 
@@ -36,9 +40,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient} >
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          {/* <UserContextProvide> */}
+          <UserContextProvider>
             <App />
-          {/* </UserContextProvide> */}
+          </UserContextProvider>
           <ToastContainer />
         </BrowserRouter>
       </ThemeProvider>

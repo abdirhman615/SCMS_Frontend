@@ -60,19 +60,19 @@ onClose={DrawerClose}
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <Link to={'Home'}>
+      <Link to={'Dashboard'}>
       <ListItemButton
-      sx={[selectedMenu === 'Home' && {bgcolor:"primary.main",color:"white",":hover":{
+      sx={[selectedMenu === 'Dashboard' && {bgcolor:"primary.main",color:"white",":hover":{
         bgcolor:"primary.dark"
       }}]}
       onClick={()=>{
-        setMenu('Home')
+        setMenu('Dashboard')
         DrawerClose()
       }}>
         <ListItemIcon>
-          <DraftsIcon sx={[selectedMenu==='Home' && {color:"white"}]} />
+          <DraftsIcon sx={[selectedMenu==='Dashboard' && {color:"white"}]} />
         </ListItemIcon>
-        <ListItemText primary="Home" />
+        <ListItemText primary="Dashboard" />
       </ListItemButton>
 
       </Link>
@@ -180,14 +180,23 @@ onClose={DrawerClose}
       component="nav"
  
     >
-      <ListItemButton >
+      {/* <ListItemButton >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
+      </ListItemButton> */}
+    
+    
+    <Link to={'Dashboard'} style={{textDecoration:"none",color:"black"}}>
+      <ListItemButton onClick={()=>setMenu('Dashboard')}  sx={[ selectedMenu==='Dashboard' && {bgcolor:"primary.main",color:"white",":hover":{bgcolor:"primary.dark"}}]}>
+        <ListItemIcon>
+          <DashboardIcon sx={[ selectedMenu==='Dashboard' && {color:"white"}]} />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
       </ListItemButton>
-    
-    
+
+      </Link>
     <Link to={'Faculty'} style={{textDecoration:"none",color:"black"}}>
       <ListItemButton onClick={()=>setMenu('Faculty')}  sx={[ selectedMenu==='Faculty' && {bgcolor:"primary.main",color:"white",":hover":{bgcolor:"primary.dark"}}]}>
         <ListItemIcon>

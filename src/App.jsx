@@ -10,37 +10,30 @@ import {Class} from "./components/ClassPage/Class";
 import {Student} from "./components/StudentsPage/Students";
 import {Complain} from "./components/ComplainPage/Complain";
 import {Users} from "./components/UsersPage/Users";
+import {Login} from "./Login/login";
 
-
-
-// import Gallery from "./components/GalleryPage/Gallery";
-// import Home from "./components/HomePage/Home";
-// import About from "./components/AboutPage/About";
-// import Contact from "./components/ContactPage/Contact";
-// import Houses from "./components/HousesPage/Houses";
-// import ImagesFolder from "./components/HousesPage/ImagesFolder";
-// import Users from "./components/UsersPage/Users";
-// import Login from "./Login/login";
-// import Logout from "./Login/logout";
 import { useUserContext } from './ContextApi/UserContext'
 import Whitescreen from "./Login/whitescreen";
 
 function app() {
-  // const {isLogin}= useUserContext()
-  // console.log(isLogin)
+  const {isLogin}= useUserContext()
+  console.log(isLogin)
+  // const {isLogin}=useUserContext()
+  //   console.log('IsLogin',isLogin)
+    
   return (
     <>
 
       {/* <Dashboard/> */}
       <Routes>
 
-        {/* <Route path='/' element={<Login/>} />
-        <Route path='/logout' element={<Logout/>} />
-        <Route path='*' element={<Whitescreen/>} /> */}
+        <Route path='/' element={<Login/>} />
+        {/* <Route path='/logout' element={<Logout/>} /> */}
+        <Route path='*' element={<Whitescreen/>} />
 
-        {/* {isLogin && <Route path='Dashboard' element={<Dashboard />}> */}
+        {isLogin && <Route path='Dashboard' element={<Dashboard />}>
         {/* <Route path='Dashboard' element={<Dashboard />}> */}
-        <Route path='/' element={<Dashboard />}>
+        {/* <Route path='/' element={<Dashboard />}> */}
           <Route path='Faculty' element={<Faculty />} />
           <Route path='Department' element={<Department />} />
           <Route path='Class' element={<Class />} />
@@ -57,8 +50,8 @@ function app() {
           <Route path='contact' element={<Contact />} />
           <Route path='users' element={<Users />} /> */}
         </Route>
-        {/* </Route>} */}
-
+}
+        
       </Routes>
 
     </>

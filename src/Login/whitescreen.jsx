@@ -10,5 +10,5 @@ export default function Whitescreen() {
         usenav('/')
     }
   },[])
-  return <Navigate to='/'/>
+  return <Navigate to='/Dashboard'/>
 }
