@@ -94,7 +94,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 export default function FacultyList({FacultyData,update,DeleteFaculty}) {
      const columns = [
-        { field: '_id', headerName: 'ID', width: 250 },
+        { field: 'FAC_ID', headerName: 'ID', width: 250 },
         {
           field: 'Facultyname',
           headerName: 'Faculty name',

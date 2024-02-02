@@ -8,7 +8,7 @@ export default function UsersList({ UsersData, updateUser, deleteUser }) {
   console.log(UsersData, 'cluesff')
 
   const columns = [
-    { field: '_id', headerName: 'ID', width: 90 },
+    { field: 'USER_ID', headerName: 'ID', width: 90 },
     {
       field: 'username',
       headerName: 'Username',
@@ -29,7 +29,7 @@ export default function UsersList({ UsersData, updateUser, deleteUser }) {
     },
     {
       field: 'userStatus',
-      headerName: 'UserStatus',
+      headerName: 'User Status',
       width: 100,
       editable: true,
     },

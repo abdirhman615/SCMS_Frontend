@@ -32,6 +32,7 @@ import axios from "axios"
 export const Users = ()=>{
 
   const YupValidate = yup.object({
+    USER_ID: yup.string().required('Enter The USER_ID'),
     username: yup.string().required('Enter The username'),
     Password: yup.string().required("Enter The Password"),
     usertype: yup.string().required("Enter The usertype"),
@@ -64,7 +65,7 @@ export const Users = ()=>{
   
   useEffect(() =>{
     const subget= async()=>{
-        const facultylist=await axios.get('http://localhost:5000/Faculty')
+        const facultylist=await axios.get('https://backend-scms.vercel.app/Faculty')
         
         const facultyval=await facultylist.data.AllFaculty
         
@@ -126,6 +127,7 @@ console.log(facultyval)
 
   const UpdateUserInfo = async (data) => {
     // console.log("xogta la rabbo in la update gareeyo",data)
+    setValue("USER_ID", data.USER_ID)
     setValue("username", data.username)
     setValue("Password", data.Password)
     setValue("usertype", data.usertype)
@@ -195,6 +197,12 @@ console.log(facultyval)
 
 
 
+                <TextField label="USER ID" {...register("USER_ID")} variant="outlined" size="small" fullWidth />
+                {errors.USER_ID ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.USER_ID.message}
+                  </Typography>
+                ) : null}
                 <TextField label="username" {...register("username")} variant="outlined" size="small" fullWidth />
                 {errors.username ? (
                   <Typography sx={{ color: "error.main" }}>

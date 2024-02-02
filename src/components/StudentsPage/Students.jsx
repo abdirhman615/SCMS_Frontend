@@ -77,7 +77,7 @@ export const Student = ()=>{
 
 useEffect(() =>{
     const subget= async()=>{
-        const deplist=await axios.get('http://localhost:5000/department')
+        const deplist=await axios.get('https://backend-scms.vercel.app/department')
         
         const Depval=await deplist.data.Alldepartment
         
@@ -85,7 +85,7 @@ useEffect(() =>{
 console.log(Depval)
 
 
-const Classlist=await axios.get('http://localhost:5000/Class')
+const Classlist=await axios.get('https://backend-scms.vercel.app/Class')
             const Classval=await Classlist.data.AllClass
             setsubcatClass(Classval)
              console.log("Classval",Classval)
@@ -208,6 +208,7 @@ const deleteStudentInfo = async (data)=>{
 
 
 
+<TextField label="Student ID" {...register("STD_id")} variant="outlined" size="small" fullWidth/>
 <TextField label="Student name" {...register("Stdname")} variant="outlined" size="small" fullWidth/>
 {errors.Stdname ? (
                   <Typography sx={{ color: "error.main" }}>
@@ -246,14 +247,46 @@ const deleteStudentInfo = async (data)=>{
                   </Typography>
                 ) : null}
 </FormControl>
-{/* 
-
-
 <TextField label="Email" {...register("Email")} variant="outlined" size="small" fullWidth/>
 
 <TextField label="STD_Pass" variant="outlined" {...register("STD_Pass")} size="small" fullWidth/>
+{/* <TextField label="department_id" {...register("department_id")} variant="outlined" size="small" fullWidth/> */}
+
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Department Name</InputLabel>
+  <Select label="Department id" variant="outlined" {...register("department_id")} size="small" fullWidth>
+    
+  {subcatDep.map((Depval) => (
+    <MenuItem key={Depval._id} value={Depval._id}>
+      {Depval.departmentname}
+    </MenuItem>
+  ))}
+</Select>
+{errors.department_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.department_id.message}
+                  </Typography>
+                ) : null}
+</FormControl>
+<FormControl >
+<InputLabel id="demo-multiple-name-label">Class Name</InputLabel>
+  <Select label="Class id" variant="outlined" {...register("Class_id")} size="small" fullWidth>
+    
+  {subcatClass.map((Classval) => (
+    <MenuItem key={Classval._id} value={Classval._id}>
+      {Classval.Classname}
+    </MenuItem>
+  ))}
+</Select>
+{errors.Class_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Class_id.message}
+                  </Typography>
+                ) : null}
+</FormControl>
+
 {/* 
-<TextField label="department_id" {...register("department_id")} variant="outlined" size="small" fullWidth/> */}
+<TextField label="department_id" {...register("department_id")} variant="outlined" size="small" fullWidth/>
 
 <FormControl >
 <InputLabel id="demo-multiple-name-label">Department Name</InputLabel>

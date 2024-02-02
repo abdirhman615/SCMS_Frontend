@@ -8,7 +8,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 export default function DepartmentList({DepartmentData,update,DeleteDepartment}) {
      const columns = [
-        { field: '_id', headerName: 'ID', width: 250 },
+        { field: 'DEP_ID', headerName: 'ID', width: 250 },
         {
           field: 'departmentname',
           headerName: 'department name',

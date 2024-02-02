@@ -42,7 +42,7 @@ export default function StudentList({StudentData,update,DeleteStudent}) {
   
     const columns = [
 
-        { field: '_id', headerName: 'ID', width: 200 },
+        { field: 'STD_id', headerName: 'ID', width: 200 },
 
         {
             headerName: "Student Name",

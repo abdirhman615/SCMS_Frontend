@@ -38,6 +38,7 @@ import Select from '@mui/material/Select';
 
 export const Department = ()=>{
     const YupValidate = yup.object({
+        DEP_ID: yup.string().required('Enter The Department ID'),
         departmentname: yup.string().required('Enter The Department Name'),
         Faculty_id: yup.string().required("Enter The Faculty id"),
       });
@@ -68,7 +69,7 @@ export const Department = ()=>{
 
     useEffect(() =>{
         const subget= async()=>{
-            const facultylist=await axios.get('http://localhost:5000/Faculty')
+            const facultylist=await axios.get('https://backend-scms.vercel.app/Faculty')
             
             const facultyval=await facultylist.data.AllFaculty
             
@@ -143,6 +144,7 @@ reset()
 
 const UpdateDepartmentInfo = async (data)=>{
 // console.log("xogta la rabbo in la update gareeyo",data)
+    setValue("DEP_ID",data.DEP_ID)
     setValue("departmentname",data.departmentname)
     setValue("Faculty_id",data.Faculty_id)
     setDepartmentId(data._id)
@@ -204,8 +206,18 @@ const deleteDepartmentInfo = async (data)=>{
 
 
 
+<TextField label="Department ID" {...register("DEP_ID")} variant="outlined" size="small" fullWidth/>
+{errors.DEP_ID ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.DEP_ID.message}
+                  </Typography>
+                ) : null}
 <TextField label="Department name" {...register("departmentname")} variant="outlined" size="small" fullWidth/>
-
+{errors.departmentname ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.departmentname.message}
+                  </Typography>
+                ) : null}
 {/* <TextField label="Faculty id" variant="outlined" {...register("Faculty_id")} size="small" fullWidth/> */}
 <FormControl >
 <InputLabel id="demo-multiple-name-label">Faculty name</InputLabel>
@@ -217,6 +229,11 @@ const deleteDepartmentInfo = async (data)=>{
     </MenuItem>
   ))}
 </Select>
+{errors.Faculty_id ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.Faculty_id.message}
+                  </Typography>
+                ) : null}
 </FormControl>
 
 

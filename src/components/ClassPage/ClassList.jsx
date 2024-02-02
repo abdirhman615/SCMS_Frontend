@@ -6,7 +6,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 export default function ClassList({ClassData,update,DeleteClass}) {
      const columns = [
-        { field: '_id', headerName: 'ID', width: 250 },
+        { field: 'Class_ID', headerName: 'ID', width: 250 },
         {
           field: 'Classname',
           headerName: 'Class name',

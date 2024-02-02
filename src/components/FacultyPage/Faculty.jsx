@@ -29,6 +29,7 @@ import {GetQuery,PostQuery,UpdateQuery,DeleteQuery} from '../../../Shared/ReactQ
 
 export const Faculty = ()=>{
     const YupValidate = yup.object({
+        FAC_ID: yup.string().required('Enter The Faculty ID'),
         Facultyname: yup.string().required('Enter The Faculty Name'),
         Creationdate: yup.string().required("Enter The Creation date"),
       });
@@ -116,6 +117,7 @@ reset()
 
 const UpdateFacultyInfo = async (data)=>{
 // console.log("xogta la rabbo in la update gareeyo",data)
+    setValue("FAC_ID",data.FAC_ID)
     setValue("Facultyname",data.Facultyname)
     setValue("Creationdate",data.Creationdate)
     setFacultyId(data._id)
@@ -176,6 +178,12 @@ const deleteFacultyInfo = async (data)=>{
 
 
 
+<TextField label="Faculty ID" {...register("FAC_ID")} variant="outlined" size="small" fullWidth/>
+{errors.FAC_ID ? (
+                  <Typography sx={{ color: "error.main" }}>
+                    {errors.FAC_ID.message}
+                  </Typography>
+                ) : null}
 <TextField label="Faculty name" {...register("Facultyname")} variant="outlined" size="small" fullWidth/>
 {errors.Facultyname ? (
                   <Typography sx={{ color: "error.main" }}>
