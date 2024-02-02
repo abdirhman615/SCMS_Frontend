@@ -121,7 +121,7 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Betahouse Login
+              Login
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit(handleLogin)} sx={{ mt: 1 }}>
         

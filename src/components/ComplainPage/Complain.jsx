@@ -71,7 +71,7 @@ export const Complain = ()=>{
 
     useEffect(() =>{
         const subget= async()=>{
-            const deplist=await axios.get('http://localhost:5000/department')
+            const deplist=await axios.get('https://backend-scms.vercel.app/department')
             
             const Depval=await deplist.data.Alldepartment
             
@@ -79,12 +79,12 @@ export const Complain = ()=>{
     console.log(Depval)
     
     
-    const Classlist=await axios.get('http://localhost:5000/Class')
+    const Classlist=await axios.get('https://backend-scms.vercel.app/Class')
                 const Classval=await Classlist.data.AllClass
                 setsubcatClass(Classval)
                  console.log("Classval",Classval)
                  
-    const STDlist=await axios.get('http://localhost:5000/Student/')
+    const STDlist=await axios.get('https://backend-scms.vercel.app/Student/')
                 const STDval=await STDlist.data.AllStudent
                 setsubcatSTD(STDval)
                  console.log("STDval",STDval)
