@@ -120,7 +120,8 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
             }}
           >
             
-            <Avatar alt="Remy Sharp"  sx={{  width: 100, height:100 }} src="../../logo/logo.png" />
+            <Avatar alt="Remy Sharp"  sx={{  width: 120, height:120 }} src="https://scontent-jnb1-1.xx.fbcdn.net/v/t39.30808-6/327564213_563999768731044_1083397079068037881_n.png?_nc_cat=102&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=BobBmUIzxu4AX_RRzje&_nc_ht=scontent-jnb1-1.xx&cb_e2o_trans=q&oh=00_AfA0FXG79Y8axmns6gM5E8mCOMHAnmk9UvuiruQLYONSVg&oe=65CFD0A6" />
+            {/* <Avatar alt="Remy Sharp"  sx={{  width: 100, height:100 }} src="../../logo/logo.png" /> */}
             
             <Typography component="h2" variant="h5">
               Login
