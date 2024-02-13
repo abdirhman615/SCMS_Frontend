@@ -22,8 +22,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center" >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Betahouse realstate company
+      <Link color="inherit" href="https://www.facebook.com/SIU.UNIVERSITY?__tn__=-UC*F">
+         Somali International University
       </Link>{'   '}
       {new Date().getFullYear()}
       {'.'}
@@ -59,6 +59,7 @@ const defaultTheme = createTheme();
 //       Password: data.get('Password'),
 //     });
 //   };
+const baseURL =import.meta.env.VITE_APP_API_URL
 
 const usenav = useNavigate()
 const {setIsLogin}= useUserContext();
@@ -66,7 +67,7 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
     mutationFn: async (data) => {
        // return await axios.post ('http://localhost:5000/login',data)
        // return await axios.post ('https://backend-scms.vercel.app/login',data)
-         return await axios.post ('https://backend-scms.vercel.app/login',data)
+         return await axios.post (`${baseURL}/login`,data)
 
     },
     onError:(err)=>{
@@ -99,7 +100,8 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://scontent-jnb1-1.xx.fbcdn.net/v/t39.30808-6/241148153_3023640017877655_2631154111194062654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=783fdb&_nc_ohc=tKuVrtb3dhIAX9Bh_OO&_nc_ht=scontent-jnb1-1.xx&cb_e2o_trans=q&oh=00_AfDiadpamxnD7WdICNWVeQ_49jnA-uYCAmop4BP7k_z-oQ&oe=65D056B0)',
+           // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -117,10 +119,10 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            
+            <Avatar alt="Remy Sharp"  sx={{  width: 100, height:100 }} src="../../logo/logo.png" />
+            
+            <Typography component="h2" variant="h5">
               Login
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit(handleLogin)} sx={{ mt: 1 }}>
@@ -131,7 +133,7 @@ const {mutateAsync,isLoading,isError,error,data:response}= useMutation({
                 required
                 fullWidth
                 id="username"
-                label="username Address"
+                label="Username "
                 name="username"
                 autoComplete="username"
                 autoFocus 
