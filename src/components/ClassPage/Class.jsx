@@ -99,7 +99,7 @@ reset()
         try{
         //     await AddClient(subdata)
         //   console.log("Data has been saved")
-        //   toast.success("Data has been saved")
+           toast.success("Data has been saved")
         mutate(data)
           ToggleDailog()
           reset()
